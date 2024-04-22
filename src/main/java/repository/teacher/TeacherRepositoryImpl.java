@@ -8,9 +8,6 @@ import model.person.Teacher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hibernate.query.QueryParameter;
-
-import java.util.List;
 
 public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> implements TeacherRepository{
     public TeacherRepositoryImpl(SessionFactory sessionFactory) {
