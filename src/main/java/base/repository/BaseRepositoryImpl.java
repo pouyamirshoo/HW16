@@ -4,6 +4,7 @@ import base.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -12,9 +13,9 @@ import java.util.Optional;
 public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>,ID extends Serializable>
         implements BaseRepository<T,ID> {
 
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     @Override
-    public T saveOrUpdate(T entity) {
+    public T saveOrUpdate(T entity) throws IllegalStateException {
         Session session = sessionFactory.getCurrentSession();
         if (entity.getId() == null)
             session.persist(entity);
@@ -22,7 +23,6 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>,ID extends Ser
             entity = session.merge(entity);
         return entity;
     }
-
     @Override
     public Optional<T> findById(ID id) {
         Session session = sessionFactory.getCurrentSession();
@@ -35,15 +35,5 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>,ID extends Ser
     public void delete(T entity) {
         Session session = sessionFactory.getCurrentSession();
         session.remove(entity);
-    }
-
-    @Override
-    public Optional<T> findByUsername(String username) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<T> findByUsernameAndPassword(String username, String password) {
-        return Optional.empty();
     }
 }
