@@ -7,6 +7,7 @@ import model.person.Teacher;
 import org.hibernate.SessionFactory;
 import repository.teacher.TeacherRepository;
 
+
 public class TeacherServiceImpl extends BaseServiceImpl<Teacher, Long, TeacherRepository> implements TeacherService {
 
 
