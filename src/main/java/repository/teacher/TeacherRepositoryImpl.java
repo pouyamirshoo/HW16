@@ -9,7 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> implements TeacherRepository{
+import java.util.List;
+
+public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher, Long> implements TeacherRepository {
     public TeacherRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
@@ -24,7 +26,7 @@ public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> impl
         Session session = SessionFactorySingleton.getInstance().openSession();
         Query<Teacher> query = session.createQuery("FROM Teacher t WHERE t.username = :username AND t.password = :password", Teacher.class);
         query.setParameter("username", username);
-        query.setParameter("password",password);
+        query.setParameter("password", password);
         Teacher teacher = query.uniqueResult();
         session.close();
         return teacher;
@@ -36,7 +38,7 @@ public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> impl
         Query<Teacher> query = session.createQuery("FROM Teacher t WHERE t.firstName = :firstName AND t.lastName = :lastName",
                 Teacher.class);
         query.setParameter("firstName", firstName);
-        query.setParameter("lastName",lastName);
+        query.setParameter("lastName", lastName);
         Teacher teacher = query.uniqueResult();
         session.close();
         return teacher;
@@ -46,11 +48,23 @@ public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> impl
     public Term findByYearAndHalfYear(int yearOfTerm, int halfTerm) throws NoResultException {
         Session session = SessionFactorySingleton.getInstance().openSession();
         Query<Term> query = session.createQuery("FROM Term t WHERE t.yearOfTerm = :yearOfTerm AND t.halfTerm = :halfTerm",
-              Term.class);
+                Term.class);
         query.setParameter("yearOfTerm", yearOfTerm);
-        query.setParameter("halfTerm",halfTerm);
+        query.setParameter("halfTerm", halfTerm);
         Term term = query.uniqueResult();
         session.close();
         return term;
     }
+
+    @Override
+    public List<Term> findByStudentId(Long id) throws NoResultException {
+        Session session = SessionFactorySingleton.getInstance().openSession();
+        Query<Term> query = session.createQuery("FROM Term t WHERE t.teacher = :id",
+                Term.class);
+        query.setParameter("id", id);
+        List<Term> terms = query.list();
+        session.close();
+        return terms;
+    }
+
 }
