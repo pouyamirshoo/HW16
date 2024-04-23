@@ -4,13 +4,14 @@ import base.entity.BaseEntity;
 
 import java.io.Serializable;
 
-public interface BaseService<T extends BaseEntity<ID>,ID extends Serializable> {
+public interface BaseService<T extends BaseEntity<ID>, ID extends Serializable> {
     T saveOrUpdate(T entity) throws IllegalStateException;
 
 
     T findById(ID id);
 
-    void delete(T t);
+    void delete(T t) throws IllegalStateException;
+
     boolean validate(T entity);
 
 }
