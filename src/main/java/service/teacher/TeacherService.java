@@ -5,7 +5,6 @@ import jakarta.persistence.NoResultException;
 import model.Term;
 import model.person.Teacher;
 
-import java.util.List;
 
 public interface TeacherService extends BaseService<Teacher, Long> {
     Teacher findByUserAndPass(String username, String password) throws NoResultException;
