@@ -3,6 +3,8 @@ package repository.currentTerm;
 import base.repository.BaseRepository;
 import model.Current;
 
-public interface CurrentTermRepository extends BaseRepository<Current,Long> {
+import java.util.List;
 
+public interface CurrentTermRepository extends BaseRepository<Current, Long> {
+    List<Current> findByStudentId();
 }
