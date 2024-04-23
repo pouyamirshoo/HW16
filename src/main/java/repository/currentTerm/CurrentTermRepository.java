@@ -6,5 +6,5 @@ import model.Current;
 import java.util.List;
 
 public interface CurrentTermRepository extends BaseRepository<Current, Long> {
-    List<Current> findByStudentId();
+    List<Current> findAllCurrentTerms();
 }
