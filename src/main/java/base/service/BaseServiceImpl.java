@@ -56,7 +56,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable
     }
 
     @Override
-    public void delete(T t) {
+    public void delete(T t) throws IllegalStateException {
         Transaction transaction = null;
         try (Session session = sessionFactory.getCurrentSession()) {
             transaction = session.beginTransaction();
