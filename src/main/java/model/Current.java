@@ -11,9 +11,7 @@ import lombok.experimental.FieldDefaults;
 import model.person.Student;
 import org.hibernate.validator.constraints.Range;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -24,7 +22,7 @@ public class Current extends BaseEntity<Long> {
     @NotNull
     int year;
     @NotNull(message = "please enter the half term")
-    @Range(min = 1,max = 2,message = "half term number must be 1 or 2")
+    @Range(min = 1, max = 2, message = "half term number must be 1 or 2")
     int halfTerm;
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
@@ -36,10 +34,6 @@ public class Current extends BaseEntity<Long> {
         this.year = year;
         this.halfTerm = halfTerm;
     }
-//    public void addLesson(Lesson lesson) {
-//        if (lesson != null) {
-//            lessons.add(lesson);
-//            lesson.getCurrents().add(this);
-//        }
-    }
+
+}
 
